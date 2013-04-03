@@ -1,9 +1,11 @@
+male(jaehrys_ii).
 male(aerys_ii).
 male(khal_drogo).
 male(rhaenys).
 male(aegon).
 male(rhaegar).
 male(viserys).
+male(rhaego).
 
 male(john_snow).
 male(eddard).
@@ -15,17 +17,26 @@ female(rhaella).
 female(elia).
 female(daenerys).
 
+% for daenerys to have some cousins, a mother is needed
+female(jaehrys_iis_love).
+parent_of(jaehrys_iis_love, aerys_ii).
+parent_of(jaehrys_iis_love, rhaella).
+
 
 parent_of(elia, rhaenys).
 parent_of(elia, aegon).
 parent_of(rhaegar, rhaenys).
 parent_of(rhaegar, aegon).
+parent_of(daenerys, rhaego).
+parent_of(khal_drogo, rhaego).
 parent_of(aerys_ii, rhaegar).
 parent_of(aerys_ii, viserys).
 parent_of(aerys_ii, daenerys).
 parent_of(rhaella, rhaegar).
 parent_of(rhaella, viserys).
 parent_of(rhaella, daenerys).
+parent_of(jaehrys_ii, aerys_ii).
+parent_of(jaehrys_ii, rhaella).
 
 %% parent_of(eddard, john_snow).
 %% parent_of(eddard, sansa).
@@ -157,3 +168,18 @@ aunt_of(Aunt, NephewNiece) :-
   parent_of(Parent, NephewNiece),
   (sibling_of(Aunt, Parent) ; sister_in_law_of(Aunt, Parent)),
   female(Aunt).
+
+
+cousin_of(Cousin, Person) :-
+  parent_of(Parent, Person),
+  sibling_of(SiblingOfParent, Parent),
+  parent_of(SiblingOfParent, Cousin),
+  Cousin \== Person.
+
+male_cousin_of(MaleCousin, Person) :-
+  cousin_of(MaleCousin, Person),
+  male(MaleCousin).
+
+female_cousin_of(FemaleCousin, Person) :-
+  cousin_of(FemaleCousin, Person),
+  male(FemaleCousin).
