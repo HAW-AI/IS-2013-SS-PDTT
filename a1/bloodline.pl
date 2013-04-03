@@ -143,6 +143,7 @@ half_sister_of(Sister, Sibling) :-
 sibling_of(Brother, Sibling) :- brother_of(Brother, Sibling).
 sibling_of(Sister, Sibling) :- sister_of(Sister, Sibling).
 
+
 sibling_in_law_of(SiblingInLaw, Person) :-
   married_to(Person, Spouse),
   sibling_of(SiblingInLaw, Spouse).
@@ -159,14 +160,17 @@ sister_in_law_of(SisterInLaw, Person) :-
   sibling_in_law_of(SisterInLaw, Person),
   female(SisterInLaw).
 
-uncle_of(Uncle, NephewNiece) :-
+
+uncle_or_aunt_of(UncleAunt, NephewNiece) :-
   parent_of(Parent, NephewNiece),
-  (sibling_of(Uncle, Parent) ; brother_in_law_of(Uncle, Parent)),
+  (sibling_of(UncleAunt, Parent) ; sibling_in_law_of(UncleAunt, Parent)).
+
+uncle_of(Uncle, NephewNiece) :-
+  uncle_or_aunt_of(Uncle, NephewNiece),
   male(Uncle).
 
 aunt_of(Aunt, NephewNiece) :-
-  parent_of(Parent, NephewNiece),
-  (sibling_of(Aunt, Parent) ; sister_in_law_of(Aunt, Parent)),
+  uncle_or_aunt_of(Aunt, NephewNiece),
   female(Aunt).
 
 
