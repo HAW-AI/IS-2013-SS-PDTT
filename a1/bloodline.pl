@@ -10,8 +10,8 @@ male(rhaego).
 male(jon_snow).
 male(eddard).
 female(sansa).
-%% female(wylla).
-%% female(catelyn).
+female(wylla).
+female(catelyn).
 
 female(rhaella).
 female(elia).
@@ -38,10 +38,10 @@ parent_of(rhaella, daenerys).
 parent_of(jaehrys_ii, aerys_ii).
 parent_of(jaehrys_ii, rhaella).
 
-%% parent_of(eddard, jon_snow).
-%% parent_of(eddard, sansa).
-%% parent_of(wylla, jon_snow).
-%% parent_of(catelyn, sansa).
+parent_of(eddard, jon_snow).
+parent_of(eddard, sansa).
+parent_of(wylla, jon_snow).
+parent_of(catelyn, sansa).
 
 
 marriage(aerys_ii, rhaella).
@@ -92,33 +92,25 @@ sister_of(Sister, Sibling) :-
 %% only works when children have two parents
 half_brother_of(Brother, Sibling) :-
   male(Brother),
-
-  father_of(FatherOfBrother, Brother),
-  father_of(FatherOfSibling, Sibling),
-
-  mother_of(MotherOfBrother, Brother),
-  mother_of(MotherOfSibling, Sibling),
-
-  (FatherOfBrother == FatherOfSibling ; MotherOfBrother == MotherOfSibling),
-  (FatherOfBrother \== FatherOfSibling ; MotherOfBrother \== MotherOfSibling),
-
-  Brother \== Sibling.
-
+  half_sibling_of(Brother, Sibling).
 
 %% only works when children have two parents
 half_sister_of(Sister, Sibling) :-
   female(Sister),
+  half_sibling_of(Sister, Sibling).
 
-  father_of(FatherOfSister, Sister),
-  father_of(FatherOfSibling, Sibling),
 
-  mother_of(MotherOfSister, Sister),
-  mother_of(MotherOfSibling, Sibling),
+half_sibling_of(Person, HalfSibling) :-
+  father_of(FatherOfPerson, Person),
+  father_of(FatherOfHalfSibling, HalfSibling),
 
-  (FatherOfSister == FatherOfSibling ; MotherOfSister == MotherOfSibling),
-  (FatherOfSister \== FatherOfSibling ; MotherOfSister \== MotherOfSibling),
+  mother_of(MotherOfPerson, Person),
+  mother_of(MotherOfHalfSibling, HalfSibling),
 
-  Sister \== Sibling.
+  (FatherOfPerson == FatherOfHalfSibling ; MotherOfPerson == MotherOfHalfSibling),
+  (FatherOfPerson \== FatherOfHalfSibling ; MotherOfPerson \== MotherOfHalfSibling),
+
+  Person \== HalfSibling.
 
 
 sibling_of(Person, Sibling) :-
