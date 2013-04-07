@@ -82,30 +82,11 @@ ancestor_of(Ancestor, Person) :-
 
 brother_of(Brother, Sibling) :-
   male(Brother),
-
-  father_of(FatherOfBrother, Brother),
-  father_of(FatherOfSibling, Sibling),
-  FatherOfBrother = FatherOfSibling,
-
-  mother_of(MotherOfBrother, Brother),
-  mother_of(MotherOfSibling, Sibling),
-  MotherOfBrother = MotherOfSibling,
-
-  Brother \== Sibling.
-
+  sibling_of(Brother, Sibling).
 
 sister_of(Sister, Sibling) :-
   female(Sister),
-
-  father_of(FatherOfSister, Sister),
-  father_of(FatherOfSibling, Sibling),
-  FatherOfSister = FatherOfSibling,
-
-  mother_of(MotherOfSister, Sister),
-  mother_of(MotherOfSibling, Sibling),
-  MotherOfSister = MotherOfSibling,
-
-  Sister \== Sibling.
+  sibling_of(Sister, Sibling).
 
 
 %% only works when children have two parents
@@ -140,9 +121,16 @@ half_sister_of(Sister, Sibling) :-
   Sister \== Sibling.
 
 
-sibling_of(Brother, Sibling) :- brother_of(Brother, Sibling).
-sibling_of(Sister, Sibling) :- sister_of(Sister, Sibling).
+sibling_of(Person, Sibling) :-
+  father_of(FatherOfPerson, Person),
+  father_of(FatherOfSibling, Sibling),
+  FatherOfPerson = FatherOfSibling,
 
+  mother_of(MotherOfPerson, Person),
+  mother_of(MotherOfSibling, Sibling),
+  MotherOfPerson = MotherOfSibling,
+
+  Person \== Sibling.
 
 sibling_in_law_of(SiblingInLaw, Person) :-
   married_to(Person, Spouse),
