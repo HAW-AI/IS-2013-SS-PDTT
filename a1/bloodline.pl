@@ -7,7 +7,7 @@ male(rhaegar).
 male(viserys).
 male(rhaego).
 
-male(john_snow).
+male(jon_snow).
 male(eddard).
 female(sansa).
 %% female(wylla).
@@ -38,9 +38,9 @@ parent_of(rhaella, daenerys).
 parent_of(jaehrys_ii, aerys_ii).
 parent_of(jaehrys_ii, rhaella).
 
-%% parent_of(eddard, john_snow).
+%% parent_of(eddard, jon_snow).
 %% parent_of(eddard, sansa).
-%% parent_of(wylla, john_snow).
+%% parent_of(wylla, jon_snow).
 %% parent_of(catelyn, sansa).
 
 
