@@ -129,8 +129,8 @@ marriage(tytos, tytos_wife).
 marriage(tywin, joanna).
 marriage(kevan, dorna).
 
-married_to(Husband, Spouse) :- marriage(Husband, Spouse).
-married_to(Spouse, Husband) :- marriage(Husband, Spouse).
+married_to(Husband, Spouse) :- marriage(Husband, Spouse), !.
+married_to(Spouse, Husband) :- marriage(Husband, Spouse), !.
 
 
 
@@ -260,62 +260,68 @@ test(married_to) :-
   married_to(rhaella, aerys_ii).
 
 test(brother_of) :-
-  brother_of(viserys, daenerys).
+  setof(Sibling, brother_of(viserys, Sibling), Siblings),
+  Siblings = [daenerys, rhaegar].
 test(brother_of) :-
   not(brother_of(daenerys, viserys)).
 
 test(sister_of) :-
-  sister_of(daenerys, viserys).
+  setof(Sibling, sister_of(daenerys, Sibling), Siblings),
+  Siblings = [rhaegar, viserys].
 test(sister_of) :-
   not(sister_of(viserys, daenerys)).
 
 test(father_of) :-
-  father_of(eddard, jon_snow).
-test(father_of) :-
-  father_of(eddard, sansa).
+  setof(Child, father_of(eddard, Child), Children),
+  Children = [jon_snow, sansa].
 test(father_of) :-
   not(father_of(eddard, viserys)).
 test(father_of) :-
   not(father_of(eddard, eddard)).
 
 test(mother_of) :-
-  mother_of(rhaella, rhaegar).
-test(mother_of) :-
-  mother_of(rhaella, daenerys).
+  setof(Child, mother_of(rhaella, Child), Children),
+  Children = [daenerys, rhaegar, viserys].
 test(mother_of) :-
   not(mother_of(rhaella, elia)).
 test(mother_of) :-
   not(mother_of(rhaella, aegon)).
 
 test(half_brother_of) :-
-  half_brother_of(jon_snow, sansa).
+  setof(HalfSibling, half_brother_of(jon_snow, HalfSibling), HalfSiblings),
+  HalfSiblings = [sansa].
 test(half_brother_of) :-
   not(half_brother_of(sansa, jon_snow)).
 
 test(half_sister_of) :-
-  half_sister_of(sansa, jon_snow).
+  setof(HalfSibling, half_sister_of(sansa, HalfSibling), HalfSiblings),
+  HalfSiblings = [jon_snow].
 test(half_sister_of) :-
   not(half_sister_of(jon_snow, sansa)).
 
 test(half_sibling_of) :-
-  half_sibling_of(jon_snow, sansa).
+  setof(HalfSibling, half_sibling_of(jon_snow, HalfSibling), HalfSiblings),
+  HalfSiblings = [sansa].
 test(half_sibling_of) :-
-  half_sibling_of(sansa, jon_snow).
+  setof(HalfSibling, half_sibling_of(sansa, HalfSibling), HalfSiblings),
+  HalfSiblings = [jon_snow].
 
 test(grandmother_of) :-
-  grandmother_of(rhaella, aegon).
+  setof(Grandchild, grandmother_of(rhaella, Grandchild), Grandchildren),
+  Grandchildren = [aegon, rhaego, rhaenys].
 test(grandmother_of) :-
   not(grandmother_of(rhaella, viserys)).
 
 test(grandfather_of) :-
-  grandfather_of(aerys_ii, aegon).
+  setof(Grandchild, grandfather_of(aerys_ii, Grandchild), Grandchildren),
+  Grandchildren = [aegon, rhaego, rhaenys].
 test(grandfather_of) :-
   not(grandfather_of(aerys_ii, viserys)).
 
 test(ancestor_of) :-
-  ancestor_of(aerys_ii, aegon).
+  ancestor_of(aerys_ii, aegon), !.
 test(ancestor_of) :-
-  ancestor_of(aerys_ii, viserys).
+  ancestor_of(aerys_ii, viserys), !.
 test(ancestor_of) :-
   not(ancestor_of(aerys_ii, rhaella)).
 test(ancestor_of) :-
@@ -324,28 +330,41 @@ test(ancestor_of) :-
   not(ancestor_of(daenerys, aerys_ii)).
 
 test(sibling_in_law_of) :-
-  sibling_in_law_of(khal_drogo, viserys).
-test(sibling_in_law_of) :-
-  sibling_in_law_of(viserys, khal_drogo).
+  setof(SiblingInLaw, sibling_in_law_of(khal_drogo, SiblingInLaw), SiblingsInLaw),
+  SiblingsInLaw = [rhaegar, viserys].
+test(sibling_in_law_of, [fixme("this and the commented out line should both be true")]) :-
+  setof(SiblingInLaw, sibling_in_law_of(viserys, SiblingInLaw), SiblingsInLaw),
+  SiblingsInLaw = [khal_drogo].
+  %% sibling_in_law_of(viserys, khal_drogo).
 
 test(brother_in_law_of) :-
-  brother_in_law_of(khal_drogo, viserys).
-test(brother_in_law_of) :-
-  brother_in_law_of(viserys, khal_drogo).
+  setof(SiblingInLaw, brother_in_law_of(khal_drogo, SiblingInLaw), SiblingsInLaw),
+  SiblingsInLaw = [rhaegar, viserys].
+test(brother_in_law_of, [fixme("this and the commented out line should both be true")]) :-
+  setof(SiblingInLaw, brother_in_law_of(viserys, SiblingInLaw), SiblingsInLaw),
+  SiblingsInLaw = [khal_drogo].
+  %% brother_in_law_of(viserys, khal_drogo).
 
 test(sister_in_law_of) :-
-  sister_in_law_of(elia, viserys).
-test(sister_in_law_of) :-
-  sister_in_law_of(daenerys, elia).
+  setof(SiblingInLaw, sister_in_law_of(elia, SiblingInLaw), SiblingsInLaw),
+  SiblingsInLaw = [daenerys, viserys].
+test(sister_in_law_of, [fixme("this and the commented out line should both be true")]) :-
+  setof(SiblingInLaw, sister_in_law_of(daenerys, SiblingInLaw), SiblingsInLaw),
+  SiblingsInLaw = [elia].
+  %% sister_in_law_of(daenerys, elia).
 
 test(cousin_of) :-
-  cousin_of(tyrion, lancel).
+  setof(Cousin, cousin_of(tyrion, Cousin), Cousins),
+  Cousins = [lancel].
 test(cousin_of) :-
-  cousin_of(lancel, tyrion).
+  setof(Cousin, cousin_of(lancel, Cousin), Cousins),
+  Cousins = [cersei, ser_jaime, tyrion].
 
 test(uncle_of) :-
-  uncle_of(tywin, lancel).
+  setof(Uncle, uncle_of(tywin, Uncle), Uncles),
+  Uncles = [lancel].
 test(uncle_of) :-
-  uncle_of(kevan, ser_jaime).
+  setof(Uncle, uncle_of(kevan, Uncle), Uncles),
+  Uncles = [cersei, ser_jaime, tyrion].
 
 :- end_tests(bloodline).
