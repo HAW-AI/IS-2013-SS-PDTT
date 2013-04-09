@@ -188,10 +188,10 @@ half_sibling_of(Person, HalfSibling) :-
   mother_of(MotherOfPerson, Person),
   mother_of(MotherOfHalfSibling, HalfSibling),
 
-  (FatherOfPerson == FatherOfHalfSibling ; MotherOfPerson == MotherOfHalfSibling),
-  (FatherOfPerson \== FatherOfHalfSibling ; MotherOfPerson \== MotherOfHalfSibling),
+  (FatherOfPerson = FatherOfHalfSibling ; MotherOfPerson = MotherOfHalfSibling),
+  (FatherOfPerson \= FatherOfHalfSibling ; MotherOfPerson \= MotherOfHalfSibling),
 
-  Person \== HalfSibling.
+  Person \= HalfSibling.
 
 
 sibling_of(Person, Sibling) :-
@@ -203,7 +203,7 @@ sibling_of(Person, Sibling) :-
   mother_of(MotherOfSibling, Sibling),
   MotherOfPerson = MotherOfSibling,
 
-  Person \== Sibling.
+  Person \= Sibling.
 
 sibling_in_law_of(SiblingInLaw, Person) :-
   married_to(Person, Spouse),
@@ -239,7 +239,7 @@ cousin_of(Cousin, Person) :-
   parent_of(Parent, Person),
   sibling_of(SiblingOfParent, Parent),
   parent_of(SiblingOfParent, Cousin),
-  Cousin \== Person.
+  Cousin \= Person.
 
 male_cousin_of(MaleCousin, Person) :-
   cousin_of(MaleCousin, Person),
