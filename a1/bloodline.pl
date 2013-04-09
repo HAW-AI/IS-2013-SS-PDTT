@@ -129,8 +129,8 @@ marriage(tytos, tytos_wife).
 marriage(tywin, joanna).
 marriage(kevan, dorna).
 
-married_to(Husband, Spouse) :- marriage(Husband, Spouse), !.
-married_to(Spouse, Husband) :- marriage(Husband, Spouse), !.
+married_to(Husband, Spouse) :- marriage(Husband, Spouse).
+married_to(Spouse, Husband) :- marriage(Husband, Spouse).
 
 
 
@@ -255,9 +255,9 @@ female_cousin_of(FemaleCousin, Person) :-
 :- begin_tests(bloodline).
 
 test(married_to) :-
-  married_to(aerys_ii, rhaella).
+  married_to(aerys_ii, rhaella), !. % shut up about choice points
 test(married_to) :-
-  married_to(rhaella, aerys_ii).
+  married_to(rhaella, aerys_ii), !. % shut up about choice points
 
 test(brother_of) :-
   setof(Sibling, brother_of(viserys, Sibling), Siblings),
@@ -332,26 +332,23 @@ test(ancestor_of) :-
 test(sibling_in_law_of) :-
   setof(SiblingInLaw, sibling_in_law_of(khal_drogo, SiblingInLaw), SiblingsInLaw),
   SiblingsInLaw = [rhaegar, viserys].
-test(sibling_in_law_of, [fixme("this and the commented out line should both be true")]) :-
+test(sibling_in_law_of) :-
   setof(SiblingInLaw, sibling_in_law_of(viserys, SiblingInLaw), SiblingsInLaw),
-  SiblingsInLaw = [khal_drogo].
-  %% sibling_in_law_of(viserys, khal_drogo).
+  SiblingsInLaw = [elia, khal_drogo].
 
 test(brother_in_law_of) :-
   setof(SiblingInLaw, brother_in_law_of(khal_drogo, SiblingInLaw), SiblingsInLaw),
   SiblingsInLaw = [rhaegar, viserys].
-test(brother_in_law_of, [fixme("this and the commented out line should both be true")]) :-
-  setof(SiblingInLaw, brother_in_law_of(viserys, SiblingInLaw), SiblingsInLaw),
-  SiblingsInLaw = [khal_drogo].
-  %% brother_in_law_of(viserys, khal_drogo).
+test(brother_in_law_of) :-
+  setof(BrotherInLaw, brother_in_law_of(BrotherInLaw, viserys), BrothersInLaw),
+  BrothersInLaw = [khal_drogo].
 
 test(sister_in_law_of) :-
   setof(SiblingInLaw, sister_in_law_of(elia, SiblingInLaw), SiblingsInLaw),
   SiblingsInLaw = [daenerys, viserys].
-test(sister_in_law_of, [fixme("this and the commented out line should both be true")]) :-
+test(sister_in_law_of) :-
   setof(SiblingInLaw, sister_in_law_of(daenerys, SiblingInLaw), SiblingsInLaw),
   SiblingsInLaw = [elia].
-  %% sister_in_law_of(daenerys, elia).
 
 test(cousin_of) :-
   setof(Cousin, cousin_of(tyrion, Cousin), Cousins),
