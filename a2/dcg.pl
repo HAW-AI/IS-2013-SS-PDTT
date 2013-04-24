@@ -1,24 +1,24 @@
 :- load_files(['../a1/bloodline.pl', 'lexicon.pl']).
 
-verheiratet(X, Y) :- married_to(X, Y). %X
-bruder(X, Y) :- brother_of(X, Y).
-schwester(X, Y) :- sister_of(X, Y).
-geschwist(X, Y) :- sibling_of(X, Y).
-vater(X, Y) :- father_of(X, Y).
-mutter(X, Y) :- mother_of(X, Y).
-halbbruder(X, Y) :- half_brother_of(X, Y).
+verheiratet(X, Y)   :- married_to(X, Y). %X
+bruder(X, Y)        :- brother_of(X, Y).
+schwester(X, Y)     :- sister_of(X, Y).
+geschwist(X, Y)     :- sibling_of(X, Y).
+vater(X, Y)         :- father_of(X, Y).
+mutter(X, Y)        :- mother_of(X, Y).
+halbbruder(X, Y)    :- half_brother_of(X, Y).
 halbschwester(X, Y) :- half_sister_of(X, Y).
 halbgeschwist(X, Y) :- half_sibling_of(X, Y).
-grossmutter(X, Y) :- grandmother_of(X, Y).
-grossvater(X, Y) :- grandfather_of(X, Y).
-vorfahre(X, Y) :- ancestor_of(X, Y).
-schwager(X, Y) :- brother_in_law_of(X, Y).
-schwaegerin(X, Y) :- sister_in_law_of(X, Y).
-cousin(X, Y) :- male_cousin_of(X, Y).
-cousine(X, Y) :- female_cousin_of(X, Y).
-elternteil(X, Y) :- parent_of(X, Y).
-onkel(X, Y) :- uncle_of(X, Y).
-tante(X, Y) :- aunt_of(X, Y).
+grossmutter(X, Y)   :- grandmother_of(X, Y).
+grossvater(X, Y)    :- grandfather_of(X, Y).
+vorfahre(X, Y)      :- ancestor_of(X, Y).
+schwager(X, Y)      :- brother_in_law_of(X, Y).
+schwaegerin(X, Y)   :- sister_in_law_of(X, Y).
+cousin(X, Y)        :- male_cousin_of(X, Y).
+cousine(X, Y)       :- female_cousin_of(X, Y).
+elternteil(X, Y)    :- parent_of(X, Y).
+onkel(X, Y)         :- uncle_of(X, Y).
+tante(X, Y)         :- aunt_of(X, Y).
 
 s(SemS,s(IP, VP, PP))           --> ip(IP, AGR),
                                     vp(SemVP, VP, AGR),
