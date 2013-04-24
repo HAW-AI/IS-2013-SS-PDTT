@@ -1,59 +1,55 @@
-lex(wer, wer, ip, agr(_, _)).
-lex(ist, sein, v, agr(sg, 3)).
-lex(der, der, det, agr(sg, 3)).
-lex(onkel, onkel, n, agr(sg, 3)).
-lex(von, von, prae, agr(_, _)).
+:- load_files('../a1/bloodline.pl').
+
+lex(wer, wer, ip, agr(_, _, _)).
+lex(ist, sein, v, agr(sg, 3, _)).
+lex(sind, sein, v, agr(pl, 1, _)).
+lex(sind, sein, v, agr(pl, 3, _)).
+lex(der, der, det, agr(sg, _, m)).
+lex(die, die, det, agr(sg, _, f)).
+lex(die, die, det, agr(pl, _, _)).
+lex(das, das, det, agr(sg, _, n)).
+lex(ein, ein, det, agr(sg, _, n)).
+lex(ein, ein, det, agr(sg, _, m)).
+lex(eine, eine, det, agr(sg, _, f)).
+
+lex(onkel, onkel, n, agr(_, _, m)).
+lex(tante, tante, n, agr(sg, _, f)).
+lex(tanten, tante, n, agr(pl, _, f)).
+
+lex(bruder, bruder, n, agr(sg, _, m)).
+lex(halbbruder, halbbruder, n, agr(sg, _, m)).
+lex(schwester, schwester, n, agr(sg, _, f)).
+lex(halbschwester, halbschwester, n, agr(sg, _, f)).
+
+lex(geschwist, geschwist, n, agr(sg, _, _)).
+lex(geschwister, geschwist, n, agr(pl, _, _)).
+
+lex(vater, vater, n, agr(sg, _, m)).
+lex(mutter, mutter, n, agr(sg, _, f)).
+lex(grossvater, grossvater, n, agr(sg, _, m)).
+lex(grossmutter, grossmutter, n, agr(sg, _, f)).
+lex(vorfahre, vorfahre, n, agr(sg, _, m)).
+lex(vorfahrin, vorfahre, n, agr(sg, _, f)).
+lex(vorfahren, vorfahre, n, agr(pl, _, _)).
 
 
-% House Targaryen
-lex(jaehrys_ii, jaehrys_ii, pn, agr(sg,3)).
-lex(aerys_ii, aerys_ii, pn, agr(sg,3)).
-lex(rhaenys, rhaenys, pn, agr(sg,3)).
-lex(aegon, aegon, pn, agr(sg,3)).
-lex(rhaegar, rhaegar, pn, agr(sg,3)).
-lex(viserys, viserys, pn, agr(sg,3)).
-lex(rhaego, rhaego, pn, agr(sg,3)).
+lex(verheiratet, verheiratet, n, agr(sg, _, _)).
+lex(schwager, schwager, n, agr(sg, _, m)).
+lex(schwaeger, schwager, n, agr(pl, _, m)).
+lex(schwaegerin, schwaegerin, n, agr(sg, _, f)).
+lex(schwaegerinnen, schwaegerin, n, agr(pl, _, f)).
 
-% Dothraki Horse Lord
-lex(khal_drogo, khal_drogo, pn, agr(sg,3)).
+lex(cousin, cousin, n, agr(sg, _, m)).
+lex(cousins, cousin, n, agr(pl, _, m)).
+lex(cousine, cousine, n, agr(sg, _, f)).
+lex(cousinen, cousine, n, agr(pl, _, f)).
 
-% House Stark
-lex(jon_snow, jon_snow, pn, agr(sg,3)).
-lex(eddard, eddard, pn, agr(sg,3)).
+lex(elternteil, elternteil, n, agr(sg, _, m)).
+lex(eltern, elternteil, n, agr(pl, _, f)).
 
-% House Baratheon
-lex(steffon, steffon, pn, agr(sg,3)).
-lex(robert, robert, pn, agr(sg,3)).
-lex(renly, renly, pn, agr(sg,3)).
-lex(stannis, stannis, pn, agr(sg,3)).
-lex(joffrey, joffrey, pn, agr(sg,3)).
-lex(tommen, tommen, pn, agr(sg,3)).
+lex(von, von, prae, agr(_, _, _)).
+lex(mit, mit, prae, agr(_, _, _)).
 
 
-
-% House Targaryen
-lex(rhaella, rhaella, pn, agr(sg,3)).
-lex(elia, elia, pn, agr(sg,3)).
-lex(daenerys, daenerys, pn, agr(sg,3)).
-
-
-% House Stark
-lex(sansa, sansa, pn, agr(sg,3)).
-lex(wylla, wylla, pn, agr(sg,3)).
-lex(catelyn, catelyn, pn, agr(sg,3)).
-
-% House Baratheon
-lex(myrcella, myrcella, pn, agr(sg,3)).
-% House Estermont
-lex(cassana, cassana, pn, agr(sg,3)).
-
-% House Lannister
-lex(cersei, cersei, pn, agr(sg,3)).
-lex(joanna, joanna, pn, agr(sg,3)).
-lex(tytos_wife, tytos_wife, pn, agr(sg,3)).
-
-% House Swyft
-lex(dorna, dorna, pn, agr(sg,3)).
-
-% for daenerys to have some cousins, a mother is needed
-lex(jaehrys_iis_love, jaehrys_iis_love, pn, agr(sg,3)).
+lex(PN, PN, pn, agr(sg, 3, m)) :- male(PN).
+lex(PN, PN, pn, agr(sg, 3, f)) :- female(PN).
