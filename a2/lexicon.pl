@@ -33,7 +33,8 @@ lex(vorfahrin, vorfahre, n, agr(sg, _, f)).
 lex(vorfahren, vorfahre, n, agr(pl, _, _)).
 
 
-lex(verheiratet, verheiratet, n, agr(sg, _, _)).
+% [ist, daenerys, verheiratet, von, khal_drogo]
+lex(verheiratet, verheiratet, n, agr(pl, _, _)).
 lex(schwager, schwager, n, agr(sg, _, m)).
 lex(schwaeger, schwager, n, agr(pl, _, m)).
 lex(schwaegerin, schwaegerin, n, agr(sg, _, f)).
