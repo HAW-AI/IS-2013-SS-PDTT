@@ -32,9 +32,6 @@ next_to(One, Two, Houses) :- right_of(Two, One, Houses).
 
 
 solve(Houses) :-
-  Houses = Nationalities,
-  %% [_, _, _, _, _] = Houses,
-
   Colors = [Red, Green, Ivory, Blue, Yellow],
   Nationalities = [Englishman, Spaniard, Ukrainian, Norwegian, Japanese],
   Pets = [Dog, Snake, Zebra, Fox, Horse],
@@ -46,6 +43,12 @@ solve(Houses) :-
   Pets ins 1..5,
   Drinks ins 1..5,
   Cigarettes ins 1..5,
+
+  all_distinct(Colors),
+  all_distinct(Nationalities),
+  all_distinct(Pets),
+  all_distinct(Drinks),
+  all_distinct(Cigarettes),
 
   Englishman #= Red,
   Spaniard #= Dog,
@@ -62,19 +65,11 @@ solve(Houses) :-
   Japanese #= Parliament,
   (Norwegian #= (Blue + 1)) #\/ (Norwegian #= (Blue - 1)),
 
-  %% index_of(Colors, 1, Color1),
-  %% index_of(Nationalities, 1, Nationality1),
-  %% index_of(Pets, 1, Pet1),
-  %% index_of(Drinks, 1, Drink1),
-  %% index_of(Cigarettes, 1, Cigarette1),
+  transpose([Colors, Nationalities, Pets, Drinks, Cigarettes], NumberedHouses),
+  maplist(label, NumberedHouses), % required to resolve vars
 
-  %% [[Color1, Nationality1, Pet1, Drink1, Cigarette1] | _] = Houses,
-
-  all_different(Colors),
-  all_different(Nationalities),
-  all_different(Pets),
-  all_different(Drinks),
-  all_different(Cigarettes).
+  writeln([Colors, Nationalities, Pets, Drinks, Cigarettes]),
+  writeln(NumberedHouses).
 
 print_solution(Hs) :- print_solution(1, Hs).
 print_solution(_, []).
@@ -83,9 +78,3 @@ print_solution(N, [H | Hs]) :-
   format("House ~w: ~w ~w ~w ~w ~w\n", [N, Color, Nationality, Pet, Drink, Cigarette]),
   N_ is N + 1,
   print_solution(N_, Hs).
-
-index_of([Element|_], Element, 1):- !.
-index_of([_|Tail], Element, Index):-
-  index_of(Tail, Element, Index1),
-  !,
-  Index is Index1+1.
