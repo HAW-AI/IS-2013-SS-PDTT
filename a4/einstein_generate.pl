@@ -44,7 +44,7 @@ house([Color, Nationality, Pet, Drink, Cigarette]) :-
   cigarette(Cigarette).
 
 
-solve :-
+solve(Houses) :-
   [_, _, _, _, _] = Houses,
 
   member([red, englishman, _, _, _], Houses),
@@ -64,12 +64,18 @@ solve :-
 
   maplist(house, Houses),
 
-  print_result(Houses).
+  findall(Pet, pet(Pet), ExistingPets),
+  findall(Pet, member([_, _, Pet, _, _], Houses), UsedPets),
+  permutation(UsedPets, ExistingPets),
 
-print_result(Hs) :- print_result(1, Hs).
-print_result(_, []).
-print_result(N, [H | Hs]) :-
+  findall(Drink, drink(Drink), ExistingDrinks),
+  findall(Drink, member([_, _, _, Drink, _], Houses), UsedDrinks),
+  permutation(UsedDrinks, ExistingDrinks).
+
+print_solution(Hs) :- print_solution(1, Hs).
+print_solution(_, []).
+print_solution(N, [H | Hs]) :-
   [Color, Nationality, Pet, Drink, Cigarette] = H,
   format("House ~w: ~w ~w ~w ~w ~w\n", [N, Color, Nationality, Pet, Drink, Cigarette]),
   N_ is N + 1,
-  print_result(N_, Hs).
+  print_solution(N_, Hs).
