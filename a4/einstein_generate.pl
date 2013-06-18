@@ -36,13 +36,6 @@ right_of(Right, Left, [_ | Houses]) :- right_of(Right, Left, Houses).
 next_to(One, Two, Houses) :- right_of(One, Two, Houses).
 next_to(One, Two, Houses) :- right_of(Two, One, Houses).
 
-house([Color, Nationality, Pet, Drink, Cigarette]) :-
-  color(Color),
-  nationality(Nationality),
-  pet(Pet),
-  drink(Drink),
-  cigarette(Cigarette).
-
 
 solve(Houses) :-
   [_, _, _, _, _] = Houses,
@@ -62,15 +55,8 @@ solve(Houses) :-
   member([_, japanese, _, _, parliament], Houses),
   next_to([_, norwegian, _, _, _], [blue, _, _, _, _], Houses),
 
-  maplist(house, Houses),
-
-  findall(Pet, pet(Pet), ExistingPets),
-  findall(Pet, member([_, _, Pet, _, _], Houses), UsedPets),
-  permutation(UsedPets, ExistingPets),
-
-  findall(Drink, drink(Drink), ExistingDrinks),
-  findall(Drink, member([_, _, _, Drink, _], Houses), UsedDrinks),
-  permutation(UsedDrinks, ExistingDrinks).
+  member([_, _, zebra, _, _], Houses),
+  member([_, _, _, milk, _], Houses).
 
 print_solution(Hs) :- print_solution(1, Hs).
 print_solution(_, []).
@@ -79,3 +65,5 @@ print_solution(N, [H | Hs]) :-
   format("House ~w: ~w ~w ~w ~w ~w\n", [N, Color, Nationality, Pet, Drink, Cigarette]),
   N_ is N + 1,
   print_solution(N_, Hs).
+
+solve_and_print :- solve(Hs), print_solution(Hs).

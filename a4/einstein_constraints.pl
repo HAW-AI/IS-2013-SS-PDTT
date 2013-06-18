@@ -35,17 +35,19 @@ solve(Houses) :-
   Kools #= Yellow,
   Milk #= 3,
   Norwegian #= 1,
-  (Chesterfield #= (Fox + 1)) #\/ (Chesterfield #= (Fox - 1)),
-  (Kools #= (Horse + 1)) #\/ (Kools #= (Horse - 1)),
   LuckyStrike #= OrangeJuice,
   Japanese #= Parliament,
-  (Norwegian #= (Blue + 1)) #\/ (Norwegian #= (Blue - 1)),
+  %% (Norwegian #= (Blue + 1)) #\/ (Norwegian #= (Blue - 1)),
+  Blue #= 2,
 
-  all_distinct(Colors),
-  all_distinct(Nationalities),
-  all_distinct(Pets),
-  all_distinct(Drinks),
-  all_distinct(Cigarettes),
+  (Chesterfield #= (Fox + 1)) #\/ (Chesterfield #= (Fox - 1)),
+  (Kools #= (Horse + 1)) #\/ (Kools #= (Horse - 1)),
+
+  all_different(Colors),
+  all_different(Nationalities),
+  all_different(Pets),
+  all_different(Drinks),
+  all_different(Cigarettes),
 
   % uncomment this for testing to find out the number of inferences
   %% Houses = [Colors, Nationalities, Pets, Drinks, Cigarettes],
